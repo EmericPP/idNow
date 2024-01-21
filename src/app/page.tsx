@@ -12,7 +12,6 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log('isSuccessful', isSuccessful)
     if (isSuccessful) {
       setTimeout(() => {
         router.push('/profile')
