@@ -11,6 +11,7 @@
     "format": "yarn lint && yarn prettier:fix"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "face-api.js": "^0.22.2",
     "next": "14.1.0",
     "prettier": "^3.2.4",

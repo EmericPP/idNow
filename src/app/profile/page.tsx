@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <main>
-      <div className='myapp'>
+      <div className='app-wrapper'>
         <h1>Hello world !</h1>
       </div>
     </main>

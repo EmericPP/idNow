@@ -14,9 +14,15 @@ type Detection = {
 type Detections = Array<Detection> | null
 
 export enum FaceDetectionStatus {
-  Pending,
-  Success,
-  Failed,
+  Pending = 0,
+  Success = 1,
+  Failed = 2,
+}
+
+type FaceDetectorStatus = {
+  isSuccessful: boolean
+  isPending: boolean
+  isFailed: boolean
 }
 
 const startVideo = async (videoElement: HTMLVideoElement) => {
@@ -27,11 +33,23 @@ const startVideo = async (videoElement: HTMLVideoElement) => {
   }
 }
 
+const getStatusVars = (detectionStatus: FaceDetectionStatus): FaceDetectorStatus => {
+  return {
+    isSuccessful: detectionStatus === FaceDetectionStatus.Success,
+    isPending: detectionStatus === FaceDetectionStatus.Pending,
+    isFailed: detectionStatus === FaceDetectionStatus.Failed,
+  }
+}
+
 export const useFaceDetector = (
   videoRef: RefObject<HTMLVideoElement>,
-  canvasRef: RefObject<HTMLCanvasElement>,
-) => {
-  const [detectedFace, setDetectedFace] = useState<Detection>()
+): {
+  detectedFace: Detection | null
+  isSuccessful: boolean
+  isPending: boolean
+  isFailed: boolean
+} => {
+  const [detectedFace, setDetectedFace] = useState<Detection | null>(null)
   const [detectionStatus, setDetectionStatus] = useState<FaceDetectionStatus>(
     FaceDetectionStatus.Pending,
   )
@@ -42,7 +60,7 @@ export const useFaceDetector = (
     let detections: Detections = []
 
     const detectAface = async () => {
-      detections = await faceApiDetection(videoRef, canvasRef)
+      detections = await faceApiDetection(videoRef)
       if (detections && detections[0]?.score >= 0.75) {
         setDetectionStatus(FaceDetectionStatus.Success)
         setDetectedFace(detections[0])
@@ -51,23 +69,18 @@ export const useFaceDetector = (
       }
     }
 
-    const setStatusAsFailed = () => {
-      clearInterval(checkDetectionsInterval)
-      setDetectionStatus(FaceDetectionStatus.Failed)
-    }
-
     await startVideo(videoRef.current)
     const checkDetectionsInterval = setInterval(detectAface, 750)
-    const authTimer = setTimeout(setStatusAsFailed, 10000)
-  }, [canvasRef, videoRef])
+    const authTimer = setTimeout(() => setDetectionStatus(FaceDetectionStatus.Failed), 10000)
+  }, [videoRef])
 
   useEffect(() => {
     initFaceApi().then()
   }, [])
 
   useEffect(() => {
-    if (detectionStatus === FaceDetectionStatus.Pending) detectFace().then()
+    if (detectionStatus !== FaceDetectionStatus.Success) detectFace().then()
   }, [detectFace, detectionStatus])
 
-  return [detectedFace, detectionStatus]
+  return { detectedFace, ...getStatusVars(detectionStatus) }
 }

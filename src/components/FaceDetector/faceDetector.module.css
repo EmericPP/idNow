@@ -1,0 +1,76 @@
+.appVideo{
+    position: relative;
+}
+
+.video {
+    border: 20px solid rgba(var(--main-color), .5);
+    width: 600px;
+    height: 600px;
+    border-radius: 40px;
+    object-fit: cover;
+}
+
+.focusIconContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.focusIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    border-radius: 30px;
+    border: 3px solid white;
+    animation: center-animate 1s ease infinite alternate;
+}
+
+.checkIcon {
+    position: relative;
+    width: 50%;
+    fill: white;
+    color: white;
+}
+
+.success {
+    composes: focusIcon;
+    border: none;
+    width: 200px;
+    height: 200px;
+    transition: 1s;
+    border-radius: 400px;
+    background-color: var(--tertiary-color);
+}
+
+.failed {
+    composes: focusIcon;
+    border-width: 6px;
+    border-color: var(--secondary-color);
+}
+
+@keyframes center-animate {
+    0% {
+        transform: scale(100%);
+    }
+    100% {
+        transform: scale(110%);
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .focusIcon {
+        width: 250px;
+        height: 250px;
+    }
+    .success {
+        width: 150px;
+        height: 150px;
+    }
+}

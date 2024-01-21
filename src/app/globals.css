@@ -8,6 +8,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+
+  --main-color: #1c1f38;
+  --secondary-color: #ff6b40;
+  --tertiary-color: #4fb2b2;
+
 }
 
 a {
@@ -21,11 +27,6 @@ a:hover {
 
 body {
   margin: 0;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -47,33 +48,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-.appvide{
-  position: relative;
-  display: flex;
-  align-items: center;
-  border-radius: 50px;
-}
-
-.appcanvas{
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.myapp{
+.app-wrapper{
   display: flex;
   flex-direction: column;
   align-items: center;
