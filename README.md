@@ -40,6 +40,9 @@ this is a responsive web application
 ### Development
 I made sure to separate the face-api.js part from the face detection hook to easily switch to another face detection/recognition API. The useFaceDetector hook was designed to be reused elsewhere in the app without depending on a specific video tag, providing flexibility in design for other future parts of the application.
 
+### Idea files
+You will also find the .idea files to recover my configuration for JetBrains editors.
+
 ## Future Improvements
 Here are some points I would have liked to implement with more time:
 
