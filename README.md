@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Time spent: 7 hours
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technical choices
 
-## Learn More
+### Frontend Framework: Next.js
+Next.js comes with many practical features for a single-page application, saving me a lot of time, especially for setting up routing and style management. It's worth noting that Create React App has recently been deprecated, and Next.js has become one of the main frameworks associated with React.
 
-To learn more about Next.js, take a look at the following resources:
+I used the latest version of the Next.js routing: App Router. As for the folder structure:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+/components: A folder for each component with a CSS module file and a JSX file, possibly a test file or Storybook for further development.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+/hooks: All React logic intended to be reusable.
 
-## Deploy on Vercel
+/services: Code that communicates with external APIs.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+/assets: For icons, images, etc.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Face detector solution
+I used face-api.js, making my choice based on GitHub and npm statistics. As a model, I added TinyFaceDetector because it's fast and lightweight, making it suitable for webcam image detection. I reduced the size for image processing to increase speed, as recommended for webcam-based facial recognition.
+
+### Languages
+Typescript helps me avoid many typing errors that could cause issues later on.
+
+### Linters & Clean Code
+Eslint and Prettier, which seem essential.
+
+### Style and CSS
+Given the simplicity of the user interface/design system in this case, I added styles via CSS modules.
+
+### Development
+I made sure to separate the face-api.js part from the face detection hook to easily switch to another face detection/recognition API. The useFaceDetector hook was designed to be reused elsewhere in the app without depending on a specific video tag, providing flexibility in design for other future parts of the application.
+
+## Future Improvements
+Here are some points I would have liked to implement with more time:
+
+### Unit Tests
+Implement unit tests with Vitest or Jest.
+
+### I18N
+Handle internationalization to avoid hardcoded text in the code.
+
+### Icon Management with SVGR
+
+### Implement Real Authentication
+
+### Restrict Detection
+Allow authentication only if there is a single person in front of the screen.
